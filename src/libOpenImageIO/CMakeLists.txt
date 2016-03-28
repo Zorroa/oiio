@@ -59,6 +59,16 @@ set (libOpenImageIO_srcs deepdata.cpp exif.cpp formatspec.cpp imagebuf.cpp
 # If the 'EMBEDPLUGINS' option is set, we want to compile the source for
 # all the plugins into libOpenImageIO.
 if (EMBEDPLUGINS)
+    set (_external_orig_suffixes ${CMAKE_FIND_LIBRARY_SUFFIXES})
+    if (LINKSTATIC)
+        if (WIN32)
+            set (CMAKE_FIND_LIBRARY_SUFFIXES .lib .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
+        else ()
+            message(STATUS "External using static embedded libs")
+            set (CMAKE_FIND_LIBRARY_SUFFIXES .a)
+        endif ()
+    endif ()
+
     set (libOpenImageIO_srcs ${libOpenImageIO_srcs}
         ../bmp.imageio/bmpinput.cpp ../bmp.imageio/bmpoutput.cpp
         ../bmp.imageio/bmp_pvt.cpp
@@ -220,6 +230,7 @@ if (EMBEDPLUGINS)
                       REGULAR_EXPRESSION "^.+/${plugin}\\.imageio/.+$"
                      )
     endforeach ()
+    set (CMAKE_FIND_LIBRARY_SUFFIXES ${_external_orig_suffixes})
 else()
     find_package (TIFF REQUIRED)
     include_directories (${TIFF_INCLUDE_DIR})

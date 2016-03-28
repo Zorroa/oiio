@@ -32,6 +32,16 @@ if (NOT VERBOSE)
     set (ZLIB_FIND_QUIETLY true)
 endif ()
 
+# Use .a files if LINKSTATIC is enabled
+set (_external_orig_suffixes ${CMAKE_FIND_LIBRARY_SUFFIXES})
+if (LINKSTATIC)
+    if (WIN32)
+        set (CMAKE_FIND_LIBRARY_SUFFIXES .lib .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
+    else ()
+        message(STATUS "Statically linking external libraries")
+        set (CMAKE_FIND_LIBRARY_SUFFIXES .a)
+    endif ()
+endif ()
 
 setup_path (THIRD_PARTY_TOOLS_HOME
             "unknown"
@@ -582,3 +592,5 @@ endif()
 # end PTEX setup
 ###########################################################################
 
+# Restore the original CMAKE_FIND_LIBRARY_SUFFIXES
+set (CMAKE_FIND_LIBRARY_SUFFIXES ${_external_orig_suffixes})

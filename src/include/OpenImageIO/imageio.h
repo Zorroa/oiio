@@ -166,7 +166,7 @@ public:
     /// channel of this->format, but if native is true, compute the size
     /// of the channel in terms of the "native" data format of that
     /// channel as stored in the file.
-    size_t channel_bytes (int chan, bool native=false) const;
+    size_t channel_bytes (int chan, bool nativefmt=false) const;
 
     /// Return the number of bytes for each pixel (counting all channels).
     /// If native is false (default), assume all channels are in 
@@ -175,7 +175,7 @@ public:
     /// the case of per-channel formats).
     /// This will return std::numeric_limits<size_t>::max() in the
     /// event of an overflow where it's not representable in a size_t.
-    size_t pixel_bytes (bool native=false) const;
+    size_t pixel_bytes (bool nativefmt=false) const;
 
     /// Return the number of bytes for just the subset of channels in
     /// each pixel described by [chbegin,chend).
@@ -185,7 +185,7 @@ public:
     /// the case of per-channel formats).
     /// This will return std::numeric_limits<size_t>::max() in the
     /// event of an overflow where it's not representable in a size_t.
-    size_t pixel_bytes (int chbegin, int chend, bool native=false) const;
+    size_t pixel_bytes (int chbegin, int chend, bool nativefmt=false) const;
 
     /// Return the number of bytes for each scanline.  This will return
     /// std::numeric_limits<imagesize_t>::max() in the event of an
@@ -194,7 +194,7 @@ public:
     /// this->format, but if native is true, compute the size of a pixel
     /// in the "native" data format of the file (these may differ in
     /// the case of per-channel formats).
-    imagesize_t scanline_bytes (bool native=false) const;
+    imagesize_t scanline_bytes (bool nativefmt=false) const;
 
     /// Return the number of pixels for a tile.  This will return
     /// std::numeric_limits<imagesize_t>::max() in the event of an
@@ -208,7 +208,7 @@ public:
     /// this->format, but if native is true, compute the size of a pixel
     /// in the "native" data format of the file (these may differ in
     /// the case of per-channel formats).
-    imagesize_t tile_bytes (bool native=false) const;
+    imagesize_t tile_bytes (bool nativefmt=false) const;
 
     /// Return the number of pixels for an entire image.  This will
     /// return std::numeric_limits<imagesize_t>::max() in the event of
@@ -222,7 +222,7 @@ public:
     /// this->format, but if native is true, compute the size of a pixel
     /// in the "native" data format of the file (these may differ in
     /// the case of per-channel formats).
-    imagesize_t image_bytes (bool native=false) const;
+    imagesize_t image_bytes (bool nativefmt=false) const;
 
     /// Verify that on this platform, a size_t is big enough to hold the
     /// number of bytes (and pixels) in a scanline, a tile, and the

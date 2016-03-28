@@ -203,6 +203,9 @@ endif
 
 ifneq (${LINKSTATIC},)
 MY_CMAKE_FLAGS += -DLINKSTATIC:BOOL=${LINKSTATIC}
+
+# Not needed if we do this globally for all external modules
+MY_CMAKE_FLAGS += -DOpenEXR_USE_STATIC_LIBS:BOOL=1
 endif
 
 ifneq (${OIIO_BUILD_TOOLS},)
@@ -272,6 +275,11 @@ endif
 ifneq (${CODECOV},)
 MY_CMAKE_FLAGS += -DCMAKE_BUILD_TYPE:STRING=Debug -DCODECOV:BOOL=${CODECOV}
 endif
+
+ifneq (${USE_FREETYPE},)
+MY_CMAKE_FLAGS += -DUSE_FREETYPE:BOOL=${USE_FREETYPE}
+endif
+
 
 #$(info MY_CMAKE_FLAGS = ${MY_CMAKE_FLAGS})
 #$(info MY_MAKE_FLAGS = ${MY_MAKE_FLAGS})
